@@ -11,6 +11,7 @@
 __目次__
 
 - [Arity](#arity)
+- [高階関数](#HOF)
 
 ## Arity
 
@@ -27,3 +28,17 @@ const zero = () => 0;
 
 __より詳しく__
 - [Arity](https://ja.wikipedia.org/wiki/%E3%82%A2%E3%83%AA%E3%83%86%E3%82%A3) (Wikipedia)
+
+<div id=HOF />
+
+## 高階関数(Higher-Order Function / HOF)
+
+関数を引数や返り値としてもつ関数。
+
+```js
+const filter = (predicate, xs) => xs.filter(predicate);
+
+const is = (type) => (x) => Object(x) instanceof type;
+
+filter(is(Number), [0, '1', 2, null]); // [0, 2]
+```
