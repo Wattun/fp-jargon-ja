@@ -9,3 +9,21 @@
 ここでは、[Fantasy Land spec](https://github.com/fantasyland/fantasy-land)で定義された用語を適宜使用している。
 
 __目次__
+
+- [Arity](#arity)
+
+## Arity
+
+関数が持つ引数の数。引数が1つの関数を単項(unary)、2つのことを二項(binary)、3つのことを三項(ternary)...という。
+
+```js
+// 引数は2つ
+const sum = (a, b) => a + b;
+// 引数は1つ
+const inc = a => a + 1;
+// 引数は0
+const zero = () => 0;
+```
+
+__より詳しく__
+- [Arity](https://ja.wikipedia.org/wiki/%E3%82%A2%E3%83%AA%E3%83%86%E3%82%A3) (Wikipedia)
