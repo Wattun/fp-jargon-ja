@@ -128,7 +128,8 @@ add(10); // 12
 const add = (x, y) => x + y;
 
 const curriedAdd = _.curry(add);
-curriesAdd(1, 2); // 3
+
+curriedAdd(1, 2); // 3
 curriedAdd(1); // (y) => 1 + y
 curriedAdd(1)(2); // 3
 ```
@@ -145,8 +146,10 @@ __詳細__
 2つの関数を組み合わせて、1つの関数の出力がもう1つの関数の入力となるような関数をつくること。この考え方は、関数プログラミングの中で最も重要なアイデアの1つである。
 
 ```js
-const conpose = (f, g) => (a) => f(g(a)); // 関数の合成の定義
+const compose = (f, g) => (a) => f(g(a)); // 関数の合成の定義
+
 const floorAndToString = compose((val) => val.toString(), Math.floor); // 使用
+
 floorAmdToString(121.212121); // '121'
 ```
  
