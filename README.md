@@ -14,6 +14,7 @@ __目次__
 - [高階関数](#HOF)
 - [クロージャ](#closure)
 - [カリー化](#currying)
+- [関数の合成](#functioncomposition)
 
 ## Arity
 
@@ -135,3 +136,33 @@ __詳細__
 
 - [Favoring Curry](http://fr.umio.us/favoring-curry/)
 - [Hey Underscore, You're Doing It Wrong!](https://www.youtube.com/watch?v=m3svKOdZijA)
+
+<div id=functioncomposition /> 
+
+## 関数の合成(Function Composition)
+
+2つの関数を組み合わせて、1つの関数の出力がもう1つの関数の入力となるような関数をつくること。この考え方は、関数プログラミングの中で最も重要なアイデアの1つである。
+
+```js
+const conpose = (f, g) => (a) => f(g(a)); // 関数の合成の定義
+const floorAndToString = compose((val) => val.toString(), Math.floor); // 使用
+floorAmdToString(121.212121); // '121'
+```
+ 
+<div id=cotinuation />
+ 
+<!-- ## 継続(Continuation)
+ 
+プログラムの任意の時点で、まだ実行されていない部分のことを継続という。
+
+```js
+const printAsString = (num) => console.log(`Given ${num}`);
+
+const addOneAnfContinue = (num, cc) ={
+const result = num + 1;
+cc(result);
+
+addOneAndContinre(2, printAsString); // 'Given 3'
+```
+
+継続は、プログラムでデータの受け取りを待機する必要があるときなど、非同期プログラミングでよくみられる。 -->
