@@ -15,6 +15,7 @@ __目次__
 - [クロージャ](#closure)
 - [カリー化](#currying)
 - [関数の合成](#functioncomposition)
+- [継続](#continuation)
 
 ## Arity
 
@@ -149,20 +150,36 @@ const floorAndToString = compose((val) => val.toString(), Math.floor); // 使用
 floorAmdToString(121.212121); // '121'
 ```
  
-<div id=cotinuation />
+<div id=continuation />
  
-<!-- ## 継続(Continuation)
+## 継続(Continuation)
  
 プログラムの任意の時点で、まだ実行されていない部分のことを継続という。
 
 ```js
 const printAsString = (num) => console.log(`Given ${num}`);
 
-const addOneAnfContinue = (num, cc) ={
-const result = num + 1;
-cc(result);
+const addOneAnfContinue = (num, cc) => {
+  const result = num + 1;
+  cc(result);
+}
 
-addOneAndContinre(2, printAsString); // 'Given 3'
+addOneAndContinue(2, printAsString); // 'Given 3'
 ```
 
-継続は、プログラムでデータの受け取りを待機する必要があるときなど、非同期プログラミングでよくみられる。 -->
+継続は、プログラムでデータの受け取りを待機する必要があるときなど、非同期プログラミングでよくみられる。
+レスポンスが一度受け取られると、継続であるプログラムの一部に渡されることが多い。
+
+```js
+const continueProgramWith = (data) => {
+  // データでプログラムを継続する
+};
+
+readFileAsync('path/to/file', (err, response) => {
+  if (err) {
+    // handleエラー
+    return;
+  }
+  continueProgramWith(response);
+});
+```
