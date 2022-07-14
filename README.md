@@ -13,6 +13,7 @@ __目次__
 - [Arity](#arity)
 - [高階関数](#HOF)
 - [クロージャ](#closure)
+- [カリー化](#currying)
 
 ## Arity
 
@@ -34,7 +35,7 @@ __詳細__
 
 ## 高階関数(Higher-Order Function / HOF)
 
-関数を引数や返り値としてもつ関数。
+関数を引数や返り値としてとる関数。
 
 ```js
 const filter = (predicate, xs) => xs.filter(predicate);
@@ -91,5 +92,46 @@ const add1More = add3.bind(null, 2, 3); // (c) => 2 + 3 + c
 ```
 
 部分適用を使って値を固定することで、複雑な関数からよりシンプルな関数を作ることができる。
-後述の[カリー化]()された関数では、自動的に部分適用される。
+後述の[カリー化](#currying)された関数では、自動的に部分適用される。
 
+<div id=currying />
+
+## カリー化(Currying)
+
+カリー化とは、複数の引数をとる関数を、引数を1つずつとる関数に変換することをいう。
+
+関数が呼び出されるたびに引数を1つだけ受け取り、すべての引数が渡されるまで、1つの引数を取る関数を返す。
+
+```js
+const sum = (a, b) => a + b;
+
+const curriedSum = (a) => (b) => a + b;
+
+curriedSum(40)(2); // 42
+
+const add2 = curriedSum(2); // (b) => 2 + b
+
+add(10); // 12
+```
+
+<div id=autocurrying />
+
+## 自動カリー化(Auto Currying)
+
+自動カリー化とは、複数の引数をとるもとの関数を、正しい引数の数より少ない数の引数を渡したときに、残りの引数をとる関数を返す関数に変換することである。
+
+ライブラリであるlodashとRamdaでは、以下のようなカリー関数が動作する。
+
+```js
+const add = (x, y) => x + y;
+
+const curriedAdd = _.curry(add);
+curriesAdd(1, 2); // 3
+curriedAdd(1); // (y) => 1 + y
+curriedAdd(1)(2); // 3
+```
+
+__詳細__
+
+- [Favoring Curry](http://fr.umio.us/favoring-curry/)
+- [Hey Underscore, You're Doing It Wrong!](https://www.youtube.com/watch?v=m3svKOdZijA)
