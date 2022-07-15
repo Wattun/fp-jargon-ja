@@ -16,6 +16,9 @@ __目次__
 - [カリー化](#currying)
 - [関数の合成](#functioncomposition)
 - [継続](#continuation)
+- [純粋関数](#purefunction)
+- [副作用](#sideeffect)
+- [べき等](#idempotent)
 
 ## Arity
 
@@ -186,3 +189,93 @@ readFileAsync('path/to/file', (err, response) => {
   continueProgramWith(response);
 });
 ```
+
+<div id=purefunction />
+
+## 純粋関数(Pure Function)
+
+関数が、入力された値に対して決定的に値が決まる、また、副作用がないという条件を満たすとき、純粋であるという。純粋関数は、引数が同じ場合には返り値が同じ値にならなければならない。
+
+```js
+const greet = (name) => `Hi, %{name}`;
+
+greet('Brianne"); // 'Hi, Brianne'
+```
+
+以下の例は純粋関数とは対照的なものとなる。
+
+```js
+window.name = 'Brianne';
+
+const greet = () => `Hi, ${window.name}`;
+
+greet(); // 'Hi, Brianne'
+```
+
+上の例では、関数の外の値を参照している。
+
+```js
+let greeting
+
+const greet = (name) => {
+  greeting = `Hi, ${name}`
+};
+
+greet('Brianne');
+greeting; // 'Hi, Brianne'
+```
+
+上の例では、関数の外の状態を設定している。
+
+<div id=sideeffect />
+
+## 副作用(Side effects)
+
+関数や式が値を返すのとは別に、外にある変更可能な要素と(読み込みや書き込みで)相互作用がある場合、その関数や式は副作用を持つという。
+
+```js
+const differentEveryTime = new Date();
+```
+
+```js
+console.log('IO is a side effect!');
+```
+
+<div id=idempotent />
+
+## べき等(Idempotent)
+
+結果に関数を再び適用しても同じ結果が得られるとき、その関数はべき等であるという。
+
+```js
+Math.abs(Math.abs(10));
+```
+
+```js
+sort(sort(sort([2, 1)));
+```
+
+<div id=pointfree />
+
+## ポイントフリースタイル(Point-Free Style)
+
+定義が使う引数を明示的に特定しないという関数の書き方をポイントフリースタイルという。
+この書き方をするときには通常、[カリー化](#currying)や他の[高階関数](#HOF)が必要となる。
+また、ポイントフリースタイルはTacit Programmingとも呼ばれる。
+
+```js
+// 準備
+const map = (fn) => (list) => list.map(fn);
+const add = (a) => (b) => a + b;
+
+// 以下、ポイントフリーとそうでないものの比較
+
+// ポイントフリーでない関数 - `numbers`は明示的な引数
+const incrementAll = (numbers) => map(add(1))(numbers);
+
+// ポイントフリーな関数 - リストは暗黙的な引数
+const incrementAll2 = map(add(1));
+```
+
+ポイントフリーで書かれた関数定義は、`function`や`=>`なしで通常の代入をするように見える。
+ポイントフリーな関数にすることで、複雑になり理解が難しくなるので、必ずしも必要になるというわけではない。
