@@ -19,6 +19,7 @@ __目次__
 - [純粋関数](#purefunction)
 - [副作用](#sideeffect)
 - [べき等](#idempotent)
+- [ポイントフリースタイル](#pointfree)
 
 ## Arity
 
@@ -38,7 +39,7 @@ __詳細__
 
 <div id=HOF />
 
-## 高階関数(Higher-Order Function / HOF)
+## 高階関数 (Higher-Order Function / HOF)
 
 関数を引数や返り値としてとる関数。
 
@@ -52,7 +53,7 @@ filter(is(Number), [0, '1', 2, null]); // [0, 2]
 
 <div id=closure />
 
-## クロージャ(Closure)
+## クロージャ (Closure)
 
 クロージャは、関数のローカル変数を補足するスコープであり、定義されたブロックの外で実行された後でも参照できるようにしたものである。これにより、返された関数からクロージャの中にある値を参照することができる。
 
@@ -70,7 +71,7 @@ __詳細__
 
 <div id=partialapplication />
 
-## 部分適用(Partial Application)
+## 部分適用 (Partial Application)
 
 部分適用とは、元の関数の引数のいくつかを事前に埋めて、新たな関数を作ることをいう。
 
@@ -101,7 +102,7 @@ const add1More = add3.bind(null, 2, 3); // (c) => 2 + 3 + c
 
 <div id=currying />
 
-## カリー化(Currying)
+## カリー化 (Currying)
 
 カリー化とは、複数の引数をとる関数を、引数を1つずつとる関数に変換することをいう。
 
@@ -121,9 +122,9 @@ add(10); // 12
 
 <div id=autocurrying />
 
-## 自動カリー化(Auto Currying)
+## 自動カリー化 (Auto Currying)
 
-自動カリー化とは、複数の引数をとるもとの関数を、正しい引数の数より少ない数の引数を渡したときに、残りの引数をとる関数を返す関数に変換することである。
+自動カリー化とは、複数の引数をとる元の関数を、本来の引数の数より少ない数の引数を渡したときに、残りの引数をとる関数を返す関数に変換することである。
 
 ライブラリであるlodashとRamdaでは、以下のようなカリー関数が動作する。
 
@@ -144,7 +145,7 @@ __詳細__
 
 <div id=functioncomposition /> 
 
-## 関数の合成(Function Composition)
+## 関数の合成 (Function Composition)
 
 2つの関数を組み合わせて、1つの関数の出力がもう1つの関数の入力となるような関数をつくること。この考え方は、関数プログラミングの中で最も重要なアイデアの1つである。
 
@@ -158,7 +159,7 @@ floorAmdToString(121.212121); // '121'
  
 <div id=continuation />
  
-## 継続(Continuation)
+## 継続 (Continuation)
  
 プログラムの任意の時点で、まだ実行されていない部分のことを継続という。
 
@@ -192,7 +193,7 @@ readFileAsync('path/to/file', (err, response) => {
 
 <div id=purefunction />
 
-## 純粋関数(Pure Function)
+## 純粋関数 (Pure Function)
 
 関数が、入力された値に対して決定的に値が決まる、また、副作用がないという条件を満たすとき、純粋であるという。純粋関数は、引数が同じ場合には返り値が同じ値にならなければならない。
 
@@ -229,7 +230,7 @@ greeting; // 'Hi, Brianne'
 
 <div id=sideeffect />
 
-## 副作用(Side effects)
+## 副作用 (Side effects)
 
 関数や式が値を返すのとは別に、外にある変更可能な要素と(読み込みや書き込みで)相互作用がある場合、その関数や式は副作用を持つという。
 
@@ -243,7 +244,7 @@ console.log('IO is a side effect!');
 
 <div id=idempotent />
 
-## べき等(Idempotent)
+## べき等 (Idempotent)
 
 結果に関数を再び適用しても同じ結果が得られるとき、その関数はべき等であるという。
 
@@ -257,7 +258,7 @@ sort(sort(sort([2, 1)));
 
 <div id=pointfree />
 
-## ポイントフリースタイル(Point-Free Style)
+## ポイントフリースタイル (Point-Free Style)
 
 定義が使う引数を明示的に特定しないという関数の書き方をポイントフリースタイルという。
 この書き方をするときには通常、[カリー化](#currying)や他の[高階関数](#HOF)が必要となる。
@@ -279,3 +280,36 @@ const incrementAll2 = map(add(1));
 
 ポイントフリーで書かれた関数定義は、`function`や`=>`なしで通常の代入をするように見える。
 ポイントフリーな関数にすることで、複雑になり理解が難しくなるので、必ずしも必要になるというわけではない。
+
+
+<div id=predicate>
+
+## Predicate
+
+predicateとは、与えられた値に対して真偽値を返す関数である。通常は、配列のfilterのコールバックとして用いられる。
+
+```js
+const predicate = (a) => a > 2;
+
+[1, 2, 3, 4].filter(predicate); // [3, 4]
+```
+
+<div id=contracts>
+
+## 契約、コントラクト (Contract)
+
+契約は、実行時に関数や式から生じる義務や利益を指定するものである。契約は、関数や式の入出力からルールの集合として振る舞い、契約に違反した場合は、通常、エラーとして報告される。
+
+```js
+// 契約の定義 : int -> boolean
+const contract = (input) => {
+  if (typeof input === 'number') return true;
+  throw new Error('Contract violated: expected int -> boolean');
+};
+
+const addOne = (num) => contract(num) && num + 1;
+
+addOne(2); // 3
+addOne('some string'); // Contract violated: expected int -> boolean
+```
+
