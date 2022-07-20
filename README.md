@@ -20,6 +20,8 @@ __目次__
 - [副作用](#sideeffect)
 - [べき等](#idempotent)
 - [ポイントフリースタイル](#pointfree)
+- [Predicate](#predicate)
+- [契約、コントラクト](#contracts)
 
 ## Arity
 
@@ -313,3 +315,41 @@ addOne(2); // 3
 addOne('some string'); // Contract violated: expected int -> boolean
 ```
 
+<div id=category>
+
+## 圏 (Category)
+
+圏論における圏とは、対象とその間の射からなる構造である。プログラミングでは通常、型が対象、関数が射として扱われる。
+
+圏が成立するためには、以下の3つの条件を満たす必要がある。
+
+1. 対象自身を指す恒等射が存在しなければならない。`a`が圏に存在する場合、`a -> a`となる関数が存在しなければならない。
+2. 射が構成されてなければいけない。圏に元`a`、`b`、`c`、`a -> b`を示す射`f`、`b -> c`を示す射`g`が存在し、`g(f(x))`は`(g • f)(x)`と等価でなければならない。
+3. `f • (g • h)`と`(f • g) • h`が等価であるように、合成は結合則を満たさなければならない。
+
+これらのルールは、非常に抽象的なレベルで合成を支配しているので、圏論は新しい合成の方法を明らかにするのに適している。
+
+例として、圏MAXをクラスとして定義する。
+
+```js
+class Max {
+  constructor (a) {
+    this.a = a;
+  };
+  id () {
+    return this;
+  };
+  compose (b) {
+    return this.a > b.a ? this : b;
+  };
+  toString () {
+    return `Max(${this.a})`;
+  };
+};
+
+new Max(2).compose(new Max(3)).compose(new Max(5)).id().id(); // => Max(5)
+```
+
+__詳細__
+
+- [Category Theory for Programmers](https://bartoszmilewski.com/2014/10/28/category-theory-for-programmers-the-preface/)
