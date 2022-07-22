@@ -22,6 +22,9 @@ __目次__
 - [ポイントフリースタイル](#pointfree)
 - [Predicate](#predicate)
 - [契約、コントラクト](#contracts)
+- [圏](#category)
+- [値](#value)
+- [定数](#constant)
 
 ## Arity
 
@@ -119,7 +122,7 @@ curriedSum(40)(2); // 42
 
 const add2 = curriedSum(2); // (b) => 2 + b
 
-add(10); // 12
+add2(10); // 12
 ```
 
 <div id=autocurrying />
@@ -353,3 +356,36 @@ new Max(2).compose(new Max(3)).compose(new Max(5)).id().id(); // => Max(5)
 __詳細__
 
 - [Category Theory for Programmers](https://bartoszmilewski.com/2014/10/28/category-theory-for-programmers-the-preface/)
+
+<div id=value>
+
+## 値 (Value)
+
+変数に代入できるもの。
+
+```js
+5
+Object.freeze({name: 'John', age: 30}); // `freeze`関数はイミュータブルを強制する
+;(a) => a;
+;[1];
+undefined
+```
+
+<div id=constant>
+
+## 定数 (Constant)
+
+一度定義すると変えることができない変数。
+
+```js
+const five = 5;
+const john = Object.freeze({name: 'John', age: 30});
+```
+
+定数は[参照等価性]()を満たす。これは、結果に影響を与えることなく、値を置き換えることができる。
+
+2つの定数を含む下の式では、常に`true`を返す。
+
+```js
+john.age + five === ({name: 'John', age: 30}).age + (5);
+```
