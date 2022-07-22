@@ -389,3 +389,15 @@ const john = Object.freeze({name: 'John', age: 30});
 ```js
 john.age + five === ({name: 'John', age: 30}).age + (5);
 ```
+
+<div id=constantfunction>
+
+## 定数関数 (Constant Function)
+
+2つめの引数を無視した[カリー化](#currying)関数。
+
+```js
+const constant = a => () => a;
+
+;[1, 2].map(constant(0)); // => [0, 0]
+```
