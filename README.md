@@ -28,6 +28,10 @@ __目次__
 - [値](#value)
 - [定数](#constant)
   - [定数関数](#constantfunction)
+  - [定数関手](#constantfunctor)
+  - [定数モナド](#constantmonad)
+
+<div id=arity>
 
 ## Arity
 
@@ -45,7 +49,7 @@ const zero = () => 0;
 __詳細__
 - [Arity](https://ja.wikipedia.org/wiki/%E3%82%A2%E3%83%AA%E3%83%86%E3%82%A3) (Wikipedia)
 
-<div id=HOF />
+<div id=HOF>
 
 ## 高階関数 (Higher-Order Function / HOF)
 
@@ -59,7 +63,7 @@ const is = (type) => (x) => Object(x) instanceof type;
 filter(is(Number), [0, '1', 2, null]); // [0, 2]
 ```
 
-<div id=closure />
+<div id=closure>
 
 ## クロージャ (Closure)
 
@@ -77,7 +81,7 @@ __詳細__
 - [ラムダ式 vs クロージャ](https://stackoverflow.com/questions/220658/what-is-the-difference-between-a-closure-and-a-lambda)
 - [JavaScriptのクロージャについての議論](https://stackoverflow.com/questions/111102/how-do-javascript-closures-work)
 
-<div id=partialapplication />
+<div id=partialapplication>
 
 ## 部分適用 (Partial Application)
 
@@ -108,7 +112,7 @@ const add1More = add3.bind(null, 2, 3); // (c) => 2 + 3 + c
 部分適用を使って値を固定することで、複雑な関数からよりシンプルな関数を作ることができる。
 後述の[カリー化](#currying)された関数では、自動的に部分適用される。
 
-<div id=currying />
+<div id=currying>
 
 ## カリー化 (Currying)
 
@@ -128,7 +132,7 @@ const add2 = curriedSum(2); // (b) => 2 + b
 add2(10); // 12
 ```
 
-<div id=autocurrying />
+<div id=autocurrying>
 
 ## 自動カリー化 (Auto Currying)
 
@@ -151,7 +155,7 @@ __詳細__
 - [Favoring Curry](http://fr.umio.us/favoring-curry/)
 - [Hey Underscore, You're Doing It Wrong!](https://www.youtube.com/watch?v=m3svKOdZijA)
 
-<div id=functioncomposition /> 
+<div id=functioncomposition> 
 
 ## 関数の合成 (Function Composition)
 
@@ -165,7 +169,7 @@ const floorAndToString = compose((val) => val.toString(), Math.floor); // 使用
 floorAmdToString(121.212121); // '121'
 ```
  
-<div id=continuation />
+<div id=continuation>
  
 ## 継続 (Continuation)
  
@@ -199,7 +203,7 @@ readFileAsync('path/to/file', (err, response) => {
 });
 ```
 
-<div id=purefunction />
+<div id=purefunction>
 
 ## 純粋関数 (Pure Function)
 
@@ -236,7 +240,7 @@ greeting; // 'Hi, Brianne'
 
 上の例では、関数の外の状態を設定している。
 
-<div id=sideeffect />
+<div id=sideeffect>
 
 ## 副作用 (Side effects)
 
@@ -250,7 +254,7 @@ const differentEveryTime = new Date();
 console.log('IO is a side effect!');
 ```
 
-<div id=idempotent />
+<div id=idempotent>
 
 ## べき等 (Idempotent)
 
@@ -264,7 +268,7 @@ Math.abs(Math.abs(10));
 sort(sort(sort([2, 1)));
 ```
 
-<div id=pointfree />
+<div id=pointfree>
 
 ## ポイントフリースタイル (Point-Free Style)
 
