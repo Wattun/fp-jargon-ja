@@ -13,7 +13,9 @@ __目次__
 - [Arity](#arity)
 - [高階関数](#HOF)
 - [クロージャ](#closure)
+- [部分適用](#partialapplication)
 - [カリー化](#currying)
+- [自動カリー化](#autocurrying)
 - [関数の合成](#functioncomposition)
 - [継続](#continuation)
 - [純粋関数](#purefunction)
@@ -25,6 +27,7 @@ __目次__
 - [圏](#category)
 - [値](#value)
 - [定数](#constant)
+  - [定数関数](#constantfunction)
 
 ## Arity
 
@@ -382,7 +385,7 @@ const five = 5;
 const john = Object.freeze({name: 'John', age: 30});
 ```
 
-定数は[参照等価性]()を満たす。これは、結果に影響を与えることなく、値を置き換えることができる。
+定数は[参照透過性]()を満たす。これは、結果に影響を与えることなく、値を置き換えることができる。
 
 2つの定数を含む下の式では、常に`true`を返す。
 
@@ -392,7 +395,7 @@ john.age + five === ({name: 'John', age: 30}).age + (5);
 
 <div id=constantfunction>
 
-## 定数関数 (Constant Function)
+### 定数関数 (Constant Function)
 
 2つめの引数を無視した[カリー化](#currying)関数。
 
@@ -401,3 +404,19 @@ const constant = a => () => a;
 
 ;[1, 2].map(constant(0)); // => [0, 0]
 ```
+
+<dic id=constantfunctor>
+
+### 定数関手 (Constant Functor)
+
+`map`が内容を変換しないオブジェクト。詳しくは[関手](#functor)
+
+```js
+Constant(1).map(n => n + 1); // => Constant(1)
+```
+
+<dic id=constantmonad>
+
+### 定数モナド (Constant Monad)
+
+`chain`が内容を変更しないオブジェクト。詳しくは[関手](#functor)
