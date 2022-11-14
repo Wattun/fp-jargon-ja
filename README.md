@@ -30,6 +30,7 @@ __目次__
   - [定数関数](#constantfunction)
   - [定数関手](#constantfunctor)
   - [定数モナド](#constantmonad)
+- [関手](#functor)
 
 <div id=arity>
 
@@ -409,18 +410,56 @@ const constant = a => () => a;
 ;[1, 2].map(constant(0)); // => [0, 0]
 ```
 
-<dic id=constantfunctor>
+<div id=constantfunctor>
 
 ### 定数関手 (Constant Functor)
 
-`map`が内容を変換しないオブジェクト。詳しくは[関手](#functor)
+`map`が内容を変換しないオブジェクト。詳しくは[関手](#functor)を参照。
 
 ```js
 Constant(1).map(n => n + 1); // => Constant(1)
 ```
 
-<dic id=constantmonad>
+<div id=constantmonad>
 
 ### 定数モナド (Constant Monad)
 
-`chain`が内容を変更しないオブジェクト。詳しくは[関手](#functor)
+`chain`が内容を変更しないオブジェクト。詳しくは[関手](#functor)を参照。
+
+<div id=functor>
+
+## 関手 (Functor)
+
+そのオブジェクトの内容に関数を持つ`map`関数を含むオブジェクト。関手は以下の2つの規則に従わなければならない。
+
+__恒等射の保存__
+
+```js
+object.map(x => x);
+```
+
+これは`object`に相当する。
+
+__合成可能__
+
+```js
+object.map(f).map(g);
+```
+
+(`f`,`g`は任意の合成可能な関数)
+
+[オプション](#option)の参照実装は規則を満足するので関手である。
+
+```js
+some.(1).map(x => x); // = some(1)
+```
+
+かつ
+
+```js
+const f = x => x + 1;
+const g = x => x * 2;
+
+some(1).map(x => g(f(x))); // = some(3)
+some(1).map(f).map(g); // = some(3)
+```
