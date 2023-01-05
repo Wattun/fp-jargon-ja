@@ -31,6 +31,7 @@ __目次__
   - [定数関手](#constantfunctor)
   - [定数モナド](#constantmonad)
 - [関手](#functor)
+- [点付き関手](#pointedfunctor)
 
 <div id=arity>
 
@@ -462,4 +463,16 @@ const g = x => x * 2;
 
 some(1).map(x => g(f(x))); // = some(3)
 some(1).map(f).map(g); // = some(3)
+```
+
+<div id=pointedfunctor>
+
+## 点付き関手(Pointed Functor)
+
+任意の1つの値を入れることができる`of`関数をもつオブジェクト。
+
+ES2015で`Array.of`が追加され、配列を点付き関手にできるようになった。
+
+```js
+Array.of(1) // 1
 ```
