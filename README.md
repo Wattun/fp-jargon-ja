@@ -32,6 +32,7 @@ __目次__
   - [定数モナド](#constantmonad)
 - [関手](#functor)
 - [点付き関手](#pointedfunctor)
+- [リフト](#lift)
 
 <div id=arity>
 
@@ -474,7 +475,7 @@ some(1).map(f).map(g); // = some(3)
 ES2015で`Array.of`が追加され、配列を点付き関手にできるようになった。
 
 ```js
-Array.of(1) // 1
+Array.of(1); // 1
 ```
 
 <div id=lift>
