@@ -511,3 +511,17 @@ lift(increment)([2]); // [3]
 ```js
 Array.of(1); => [1]
 ```
+
+<div id=referentialtransparency>
+
+## 参照透過性(Referential Transparency)
+
+プログラムの動作を変えることなく値を置き換えられる式を、参照透過性をもつという。
+
+以下のような関数を与えると、
+
+```js
+const greet = () => 'Hello World!';
+```
+
+`greet()`の呼び出しは`Hello World!`に置き換え可能である。したがって、`greet`は参照透過性をもつ。`greet`が設定やデータベースなどの呼び出しのような外部の状態に依存している場合、参照透過性は失われる。また、[純粋関数](#purefunction)や[方程式の推論](#equationalreasonig)を参照。
